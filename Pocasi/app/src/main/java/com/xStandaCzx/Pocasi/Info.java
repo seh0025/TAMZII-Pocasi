@@ -99,7 +99,6 @@ public class Info extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==R.id.Remove)
         {
-            Log.d("","qqqqqqqqqqqq"+la+" "+lo);
             NetworkActivity.removeOne(la,lo);
             this.finish();
             return true;
@@ -214,7 +213,8 @@ public class Info extends Activity {
 
             if (name.equals("name")) {
                // textView7.setText(readText(parser));
-                ((TextView) findViewById(textw[0])).setText(readText(parser));
+                setText((TextView)findViewById(textw[0]),readText(parser));
+                //((TextView) findViewById(textw[0])).setText(readText(parser));
             }
             if (name.equals("location")) {
                 for (int i = 0; i < parser.getAttributeCount(); i++) {
@@ -227,17 +227,23 @@ public class Info extends Activity {
             if (name.equals("symbol") && first==false) {
                 for (int i = 0; i < parser.getAttributeCount(); i++) {
                     if (parser.getAttributeName(i).equals("name")) {
-                        ((TextView) findViewById(textw[2])).setText(parser.getAttributeValue(i));}}
+                        setText((TextView)findViewById(textw[2]),parser.getAttributeValue(i));
+                        //((TextView) findViewById(textw[2])).setText(parser.getAttributeValue(i));
+                    }}
             }
             if (name.equals("pressure") && first==false) {
                 for (int i = 0; i < parser.getAttributeCount(); i++) {
                     if (parser.getAttributeName(i).equals("value")) {
-                        ((TextView) findViewById(moreinfo[2])).setText(parser.getAttributeValue(i)+"hPa");}}
+                        setText((TextView)findViewById(moreinfo[2]),parser.getAttributeValue(i)+"hPa");
+                      //  ((TextView) findViewById(moreinfo[2])).setText(parser.getAttributeValue(i)+"hPa");
+                    }}
             }
             if (name.equals("humidity") && first==false) {
                 for (int i = 0; i < parser.getAttributeCount(); i++) {
                     if (parser.getAttributeName(i).equals("value")) {
-                        ((TextView) findViewById(moreinfo[3])).setText(parser.getAttributeValue(i)+"%");}}first=true;
+                        setText((TextView)findViewById(moreinfo[3]),parser.getAttributeValue(i)+"%");
+                      //  ((TextView) findViewById(moreinfo[3])).setText(parser.getAttributeValue(i)+"%");
+                    }}first=true;
             }
             if (name.equals("sun") && first==false) {
                 for (int i = 0; i < parser.getAttributeCount(); i++) {
@@ -245,21 +251,31 @@ public class Info extends Activity {
                         String dat=parser.getAttributeValue(i);
                         dat=dat.substring(11);
                         dat = dat.substring(0,dat.length() - 3);
-                        ((TextView) findViewById(moreinfo[0])).setText(dat);}
+                        setText((TextView)findViewById(moreinfo[0]),dat);
+                       // ((TextView) findViewById(moreinfo[0])).setText(dat);
+                    }
                     if (parser.getAttributeName(i).equals("set")) {
                         String dat=parser.getAttributeValue(i);
                         dat=dat.substring(11);
                         dat = dat.substring(0,dat.length() - 3);
-                        ((TextView) findViewById(moreinfo[1])).setText(dat);} }
+                        setText((TextView)findViewById(moreinfo[1]),dat);
+                       // ((TextView) findViewById(moreinfo[1])).setText(dat);
+                    } }
             }
             if (name.equals("temperature") && first==false) {
                 for (int i = 0; i < parser.getAttributeCount(); i++) {
                     if (parser.getAttributeName(i).equals("value")) {
-                        ((TextView)findViewById(textw[1])).setText(parser.getAttributeValue(i)+"°C");}
+                        setText((TextView)findViewById(textw[1]),parser.getAttributeValue(i)+"°C");
+                     //   ((TextView)findViewById(textw[1])).setText(parser.getAttributeValue(i)+"°C");
+                    }
                     if (parser.getAttributeName(i).equals("min")) {
-                        ((TextView)findViewById(moreinfo[4])).setText(parser.getAttributeValue(i)+"°C");}
+                        setText((TextView)findViewById(moreinfo[4]),parser.getAttributeValue(i)+"°C");
+                       // ((TextView)findViewById(moreinfo[4])).setText(parser.getAttributeValue(i)+"°C");
+                    }
                     if (parser.getAttributeName(i).equals("max")) {
-                        ((TextView)findViewById(moreinfo[5])).setText(parser.getAttributeValue(i)+"°C");}}
+                        setText((TextView)findViewById(moreinfo[5]),parser.getAttributeValue(i)+"°C");
+                     //   ((TextView)findViewById(moreinfo[5])).setText(parser.getAttributeValue(i)+"°C");
+                    }}
             }
             if (name.equals("symbol") && first==true) {
                 for (int i = 0; i < parser.getAttributeCount(); i++) {
@@ -278,14 +294,17 @@ public class Info extends Activity {
                         String dat=parser.getAttributeValue(i);
                         dat=dat.substring(11);
                         dat = dat.substring(0,dat.length() - 3);
-                        ((TextView)findViewById(textwtime[y])).setText(dat); }}
+                        setText((TextView)findViewById(textwtime[y]),dat);
+                       // ((TextView)findViewById(textwtime[y])).setText(dat);
+                    }}
                         y++;
             }
             if (name.equals("temperature") && first==true) {
                 for (int i = 0; i < parser.getAttributeCount(); i++) {
                     if (parser.getAttributeName(i).equals("value")) {
-
-                        ((TextView)findViewById(textw[x])).setText(parser.getAttributeValue(i)+"°C");}}
+                        setText((TextView)findViewById(textw[x]),parser.getAttributeValue(i)+"°C");
+                      //  ((TextView)findViewById(textw[x])).setText(parser.getAttributeValue(i)+"°C");
+                    }}
                 x++;
             }
             if(x==9){break;}
@@ -316,7 +335,14 @@ public class Info extends Activity {
         parser.next();
     }
 
-
+    private void setText(final TextView text,final String value){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                text.setText(value);
+            }
+        });
+    }
 
 
 

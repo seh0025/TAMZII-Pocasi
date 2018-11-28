@@ -35,21 +35,17 @@ public class Pridatlokaci extends Activity implements LocationListener {
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
-                Log.d("", "Place: " + place.getName());
                 la=place.getLatLng().latitude;
                 lo=place.getLatLng().longitude;
                 String lla=Double.toString(la);
                 String llo=Double.toString(lo);
-                Log.d("Pozoce",""+lla+" "+llo);
                 NetworkActivity.addLoc(lla,llo);
             }
 
 
             @Override
             public void onError(Status status) {
-                // TODO: Handle the error.
-                Log.d("", "An error occurred: " + status);
+
             }
         });
 
@@ -76,13 +72,11 @@ public class Pridatlokaci extends Activity implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         if(location == null){
-            Log.d("","Error localisation: ");
         }else{
             la=location.getLatitude();
             lo=location.getLongitude();
             String lla=Double.toString(la);
             String llo=Double.toString(lo);
-            Log.d("Pozoce",""+lla+" "+llo);
             NetworkActivity.addLoc((lla),(llo));
             this.finish();
 

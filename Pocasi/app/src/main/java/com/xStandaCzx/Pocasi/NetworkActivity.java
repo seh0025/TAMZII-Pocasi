@@ -129,7 +129,6 @@ public class NetworkActivity extends Activity {
     private void loadPage() {
         retriveArray();
         result.clear();
-        Log.d("","xxxxxxxxxxxxxxxxxxxx");
         for (Lokace l:array) {
 //lat=49.7053597 lon=18.6134497
             URL ="http://api.openweathermap.org/data/2.5/forecast?lat="+l.la+"&lon="+l.lo+"&appid=e3d7c39579a17f884c35c02c2af807c8&units=metric&mode=xml&lang=cz";
@@ -140,6 +139,7 @@ public class NetworkActivity extends Activity {
             } else {
                 showErrorPage();
             }
+
 
         }
 
@@ -211,20 +211,26 @@ public class NetworkActivity extends Activity {
             setContentView(R.layout.main);
             // Displays the HTML string in the UI via a WebView
             ListView lv = (ListView) findViewById(R.id.listView1);
-
-            Log.d("Result", "length = " + result.size());
+            reloadLoc();
 
             mAdapter = new Adapter(context,
                     R.layout.list_entry_layout, result);
             lv.setAdapter(mAdapter);
+            array.clear();
+            for(Lokace l:result){
+                array.add(l);
+            }
             lv.setOnItemClickListener(myListener);
+
+
+
+
         }
     }
 
     private void Refresh() {
         setContentView(R.layout.main);
         ListView lv = (ListView) findViewById(R.id.listView1);
-        Log.d("Result", "length = " + result.size());
         Adapter adapter = new Adapter(this,R.layout.list_entry_layout, result);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(myListener);
@@ -295,7 +301,7 @@ public class NetworkActivity extends Activity {
             if(json.isEmpty()){break;}
             Lokace obj = gson.fromJson(json, Lokace.class);
             array.add(obj);
-            Log.d("",""+obj.la+" "+obj.lo);x++;
+            x++;
         }
     }
 
@@ -322,25 +328,41 @@ public class NetworkActivity extends Activity {
         Gson gson = new Gson();
         int x=0;
         int y=0;
-        Log.d("","eeeeeeeee"+la+" "+lo);
+        int index=0;
         prefs.edit().clear().commit();
         for (Lokace l:array) {
 
-            if(l.la.format("%.2f", Double.parseDouble(l.la)).equals(la.format("%.1f", Double.parseDouble(la))) && l.la.format("%.2f", Double.parseDouble(l.lo)).equals(la.format("%.2f", Double.parseDouble(lo)))) {
-                array.remove(y);
-                Log.d("","qqqqqqqqqqqq"+l.la+" "+l.lo);
+            if(l.la.equals(la) && lo.equals(lo)) {
+                index=y;
             }else {
                 String json = gson.toJson(new Lokace("","","","",l.la,l.lo));
                 edit.putString(""+(x), json);
                 edit.commit();
-                Log.d("",""+l.la+" "+l.lo);
                 x++;
+                y++;
             }
-            y++;
+
         }
+        array.remove(index);
+
+        retriveArray();
     }
 
+    private void reloadLoc()
+    {
 
+        SharedPreferences.Editor edit = prefs.edit();
+        Gson gson = new Gson();
+        prefs.edit().clear().commit();
+        int x=0;
+        for (Lokace l:result) {
+
+        String json = gson.toJson(new Lokace("","","","",l.la,l.lo));
+        edit.putString(""+(x), json);
+        edit.commit();
+        x++;
+        }
+    }
 
 
 
