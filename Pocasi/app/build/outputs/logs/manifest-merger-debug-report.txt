@@ -101,7 +101,7 @@ MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\xStandaCzx\.gradle\c
 	android:label
 		ADDED from C:\Users\xStandaCzx\Desktop\tamz2\Pocasi\app\src\main\AndroidManifest.xml:17:9-31
 	android:icon
-		ADDED from C:\Users\xStandaCzx\Desktop\tamz2\Pocasi\app\src\main\AndroidManifest.xml:16:9-45
+		ADDED from C:\Users\xStandaCzx\Desktop\tamz2\Pocasi\app\src\main\AndroidManifest.xml:16:9-38
 activity#com.xStandaCzx.Pocasi.NetworkActivity
 ADDED from C:\Users\xStandaCzx\Desktop\tamz2\Pocasi\app\src\main\AndroidManifest.xml:18:9-26:20
 	android:label

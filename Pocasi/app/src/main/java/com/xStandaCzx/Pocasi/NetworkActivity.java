@@ -51,7 +51,7 @@ public class NetworkActivity extends Activity {
     public static final String ANY = "Any";
     List<Lokace> result=new ArrayList<>();
     private ArrayAdapter mAdapter;
-
+    private int firstload=0;
     static SharedPreferences prefs;
     static SharedPreferences.Editor edit ;
 
@@ -128,6 +128,7 @@ public class NetworkActivity extends Activity {
     // network operations on a separate thread from the UI.
     private void loadPage() {
         retriveArray();
+        loaddatafromstorage();
         result.clear();
         for (Lokace l:array) {
 //lat=49.7053597 lon=18.6134497
@@ -291,6 +292,17 @@ public class NetworkActivity extends Activity {
 
 //--------------------------------------------Array------------------------------------------------
 
+    public void loaddatafromstorage()
+    {
+        setContentView(R.layout.main);
+        // Displays the HTML string in the UI via a WebView
+        ListView lv = (ListView) findViewById(R.id.listView1);
+
+        mAdapter = new Adapter(this,
+                R.layout.list_entry_layout, array);
+        lv.setAdapter(null);
+        lv.setAdapter(mAdapter);
+    }
     static void retriveArray() {
         Gson gson = new Gson();
         int x=0;
@@ -303,6 +315,11 @@ public class NetworkActivity extends Activity {
             array.add(obj);
             x++;
         }
+        for(Lokace l:array)
+        {
+            Log.d("","Mesta: "+l.cityname);
+        }
+        Log.d("","xxxxxxxxxx");
     }
 
     static void addLoc(String la,String lo) {
@@ -357,7 +374,7 @@ public class NetworkActivity extends Activity {
         int x=0;
         for (Lokace l:result) {
 
-        String json = gson.toJson(new Lokace("","","","",l.la,l.lo));
+        String json = gson.toJson(new Lokace("",l.cityname,l.temp,l.weather,l.la,l.lo));
         edit.putString(""+(x), json);
         edit.commit();
         x++;
@@ -385,10 +402,13 @@ public class NetworkActivity extends Activity {
                     && networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
                 refreshDisplay = true;
                 Toast.makeText(context, R.string.wifi_connected, Toast.LENGTH_SHORT).show();
+
             } else if (ANY.equals(sPref) && networkInfo != null) {
                 refreshDisplay = true;
             } else {
                 refreshDisplay = false;
+                retriveArray();
+                loaddatafromstorage();
                 Toast.makeText(context, R.string.lost_connection, Toast.LENGTH_SHORT).show();
             }
         }

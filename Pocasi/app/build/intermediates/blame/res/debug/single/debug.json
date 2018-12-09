@@ -1080,6 +1080,10 @@
         "source": "C:\\Users\\xStandaCzx\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\eee97c7ad4e58971411599904562da73\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
     },
     {
+        "merged": "C:\\Users\\xStandaCzx\\Desktop\\tamz2\\Pocasi\\app\\build\\intermediates\\res\\merged\\debug\\drawable_icon.png.flat",
+        "source": "C:\\Users\\xStandaCzx\\Desktop\\tamz2\\Pocasi\\app\\src\\main\\res\\drawable\\icon.png"
+    },
+    {
         "merged": "C:\\Users\\xStandaCzx\\Desktop\\tamz2\\Pocasi\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_cab_background_top_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\xStandaCzx\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\eee97c7ad4e58971411599904562da73\\res\\drawable-hdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png"
     },
